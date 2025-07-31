@@ -8,7 +8,7 @@ import datetime
 st.set_page_config(page_title="📈 Live Stock Market Dashboard", layout="wide")
 
 st.title("📊 Live Stock Market Dashboard")
-st.markdown("View real-time stock prices, closing trends, trading volume, and 50-day moving averages.")
+st.markdown("View real-time stock prices, trends, trading volume, moving averages, and daily changes.")
 
 # Sidebar input
 symbols = st.sidebar.multiselect(
@@ -47,31 +47,4 @@ if symbols:
     # 📊 Volume Traded
     st.subheader("📊 Volume Traded")
     fig2 = px.area()
-    for symbol in symbols:
-        fig2.add_scatter(
-            x=all_data['Date'],
-            y=all_data[f'Volume_{symbol}'],
-            mode='lines',
-            stackgroup='one',
-            name=symbol
-        )
-    fig2.update_layout(title="Daily Volume Traded", xaxis_title="Date", yaxis_title="Volume")
-    st.plotly_chart(fig2, use_container_width=True)
-
-    # 📉 50-Day Moving Average
-    st.subheader("📉 50-Day Moving Average Trend")
-    fig3 = px.line()
-    for symbol in symbols:
-        ma_col = f'MA50_{symbol}'
-        all_data[ma_col] = all_data[f'Close_{symbol}'].rolling(window=50).mean()
-        fig3.add_scatter(
-            x=all_data['Date'],
-            y=all_data[ma_col],
-            mode='lines',
-            name=f'{symbol} 50-Day MA'
-        )
-    fig3.update_layout(title="50-Day Moving Average", xaxis_title="Date", yaxis_title="Price (USD)")
-    st.plotly_chart(fig3, use_container_width=True)
-
-else:
-    st.warning("👈 Please select at least one stock symbol to view data.")
+    for sym
